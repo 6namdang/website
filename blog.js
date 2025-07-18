@@ -95,3 +95,4 @@ postsContainer.addEventListener('click', async e => {
 });
 
 updateUI();
+
