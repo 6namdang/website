@@ -1,417 +1,83 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hoang Nam Dang | Portfolio</title>
-    <!-- Japanese-style Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Kosugi+Maru&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #F0EDE5;
-            --wood: #CBBFA9;
-            --olive: #556B2F;
-            --text: #333;
-            --card: #FFF;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
-        *,
-        *::before,
-        *::after {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            font-family: 'Kosugi Maru', cursive;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        header {
-            position: relative;
-            background: var(--wood);
-            padding: 2rem 1rem;
-            text-align: center;
-            border-bottom: 4px solid var(--olive);
-            box-shadow: 0 4px 10px var(--shadow);
-        }
-
-        .avatar {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            width: 96px;
-            height: 96px;
-            border-radius: 8px;
-            border: 3px solid var(--olive);
-        }
-
-        header h1 {
-            font-size: 2.5rem;
-            color: var(--olive);
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        nav {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        nav a {
-            background: #E6D4B8;
-            color: var(--olive);
-            padding: 0.5rem 1rem;
-            border: 2px solid var(--olive);
-            border-radius: 6px;
-            font-size: 0.9rem;
-            text-decoration: none;
-            transition: background 0.3s;
-        }
-
-        nav a:hover {
-            background: var(--olive);
-            color: #FFF;
-        }
-
-        section {
-            max-width: 900px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            background: var(--card);
-            border-radius: 8px;
-            box-shadow: 0 4px 10px var(--shadow);
-        }
-
-        section h2 {
-            font-size: 1.8rem;
-            color: var(--olive);
-            border-bottom: 2px solid var(--wood);
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        ul {
-            list-style: disc inside;
-            margin-bottom: 1rem;
-        }
-
-        .entry-list li {
-            margin-bottom: 1rem;
-        }
-
-        .project-cards {
-            display: flex;
-            gap: 1rem;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 1rem;
-            margin: 1rem 0;
-        }
-
-        .project-card {
-            flex: 0 0 260px;
-            background: var(--card);
-            padding: 1rem;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px var(--shadow);
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .project-card h4 {
-            font-size: 1rem;
-            color: var(--olive);
-            margin-bottom: 0.5rem;
-        }
-
-        .project-card p {
-            font-size: 0.9rem;
-            margin-bottom: 0.8rem;
-            flex-grow: 1;
-        }
-
-        .project-card a {
-            display: inline-block;
-            text-align: center;
-            background: var(--olive);
-            color: #FFF;
-            padding: 0.4rem 0.8rem;
-            border-radius: 6px;
-            text-decoration: none;
-            transition: background 0.3s;
-            font-size: 0.85rem;
-        }
-
-        .project-card a:hover {
-            background: #3e551f;
-        }
-
-        #fun-facts p,
-        #volunteer p,
-        #advisors p {
-            text-align: center;
-            font-size: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 1200px) {
-            .grid {
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            }
-        }
-
-        @media (max-width: 700px) {
-            section {
-                margin: 1rem;
-                padding: 1rem;
-            }
-
-            .avatar {
-                width: 72px;
-                height: 72px;
-            }
-
-            header h1 {
-                font-size: 2rem;
-            }
-
-            header p {
-                font-size: 0.9rem;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            nav a {
-                padding: 0.4rem 0.8rem;
-                font-size: 0.8rem;
-            }
-
-            .project-card {
-                flex: 0 0 80%;
-                max-width: 80%;
-            }
-        }
-
-        @media (max-width: 400px) {
-            .avatar {
-                width: 56px;
-                height: 56px;
-            }
-
-            header h1 {
-                font-size: 1.5rem;
-            }
-
-            nav a {
-                font-size: 0.7rem;
-                padding: 0.3rem 0.5rem;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <header>
-        <img src="avatar.jpg" alt="Retro Avatar" class="avatar">
-        <h1>Hoang Nam Dang</h1>
-        <p>Full Stack Developer & ML Researcher</p>
-        <nav>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#experience">Experience</a>
-            <a href="#research">Research</a>
-            <a href="#volunteer">Volunteer</a>
-            <a href="#projects">Projects</a>
-            <a href="#fun-facts">Fun Fact</a>
-            <a href="#advisors">Advisors</a>
-            <a href="#contact">Contact</a>
-        </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nam Dang | Portfolio</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="hero">
+      <img src="avatar.jpg" alt="Nam Dang" class="avatar" />
+      <h1>Nam Dang</h1>
+      <p class="tagline">Software Engineer &amp; ML Enthusiast</p>
+      <nav class="nav">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#blog">Blog</a>
+        <a href="#contact">Contact</a>
+      </nav>
     </header>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p><strong>BS in Computer Science</strong>, Gannon University (2021–2025)</p>
-        <p>Email: <a href="mailto:dang004@gannon.edu">dang004@gannon.edu</a> | <a href="https://linkedin.com/in/dang004"
-                target="_blank">LinkedIn</a> | <a href="https://github.com/6namdang" target="_blank">GitHub</a></p>
-    </section>
+    <main>
+      <section id="about">
+        <h2>About</h2>
+        <p>
+          Welcome to my personal website. I'm Nam Dang, a software developer
+          passionate about machine learning.
+        </p>
+      </section>
 
-    <section id="skills">
-        <h2>Skills</h2>
-        <div class="grid">
-            <div>
-                <h3>Languages</h3>
-                <ul>
-                    <li>Python</li>
-                    <li>JavaScript</li>
-                    <li>C#</li>
-                    <li>C/C++</li>
-                    <li>SQL</li>
-                </ul>
-            </div>
-            <div>
-                <h3>Frameworks & Tools</h3>
-                <ul>
-                    <li>React.js, Next.js, Node.js</li>
-                    <li>TensorFlow, PyTorch, scikit-learn</li>
-                    <li>MongoDB, MySQL/PostgreSQL</li>
-                    <li>InfluxDB, Redis, RabbitMQ</li>
-                    <li>AWS & Azure, Docker, Git, Linux</li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="experience">
-        <h2>Experience</h2>
-        <ul class="entry-list">
-            <li>
-                <h3>Research Assistant, Smart Manufacturing</h3>
-                <p>Applied YOLOv11 model for 3D-print defect detection, improving quality control by 30%.</p>
-            </li>
-            <li>
-                <h3>Research Assistant, Dept. of Computer & Information Science</h3>
-                <p>Led ML research with scikit-learn & TensorFlow to analyze campus data for student outcome
-                    predictions.</p>
-            </li>
-            <li>
-                <h3>ML/C# Engineer Intern, Panhealth Inc</h3>
-                <p>Built LSTM pill predictor (85% accuracy) with Alexa integration; developed ASP.NET Core features.</p>
-            </li>
-            <li>
-                <h3>E3 Full Stack Developer, Erie Technology Incubator</h3>
-                <p>Designed RabbitMQ-InfluxDB-MongoDB pipeline on AWS; optimized queries and integrated Redis.</p>
-            </li>
-            <li>
-                <h3>VR/AR Developer, Gannon University</h3>
-                <p>Created Unity 3D welding simulator with realistic physics for VR training.</p>
-            </li>
-            <li>
-                <h3>Staff, The Knight Club</h3>
-                <p>Coordinated events and member activities (Oct 2021–Jan 2023).</p>
-            </li>
-            <li>
-                <h3>Student Worker, Office of Residence Life</h3>
-                <p>Supported student housing operations and staff (May 2022–Aug 2024).</p>
-            </li>
-        </ul>
-    </section>
-
-    <section id="research">
-        <h2>Research</h2>
-        <ul class="entry-list">
-            <li>
-                <h3>Thesis: Interpretable ML for Transfer Intentions</h3>
-                <p>Developed KAN-XGBoost model predicting student transfers (92% accuracy), reducing funding waste by
-                    67%.</p>
-            </li>
-            <li>
-                <h3>Serverless Intelligent Firewall</h3>
-                <p>Built Bi-LSTM IDS on CICIDS2017 (95% accuracy, 0.90 F1) with auto-healing design; deployed via
-                    SageMaker & ECR.</p>
-            </li>
-            <li>
-                <h3>Smart Manufacturing Defects</h3>
-                <p>Applied YOLOv11 on printer video frames, boosting defect detection efficiency by 30%.</p>
-            </li>
-        </ul>
-    </section>
-
-    <section id="volunteer">
-        <h2>Volunteer</h2>
-        <ul class="entry-list">
-            <li>
-                <h3>Our West Bayfront (OWB) Volunteer</h3>
-                <p>Summer 2022 – Participated in environmental initiatives including street tree planting, park
-                    cleanups, and community build projects to enhance Erie’s waterfront neighborhood.</p>
-            </li>
-            <li>
-                <h3>Refugee Camp Tech Instructor</h3>
-                <p>Fall 2024 – Volunteered at a refugee camp teaching workshops on safe technology practices and how to
-                    recognize and avoid email scams.</p>
-            </li>
-        </ul>
-    </section>
-
-    <section id="projects">
+      <section id="projects">
         <h2>Projects</h2>
-        <div class="project-cards">
-            <div class="project-card">
-                <h4>Interview Grader</h4>
-                <p>Next.js & TensorFlow.js multimodal emotion & pose detection.</p><a
-                    href="https://interview-grader-frontend.vercel.app/" target="_blank">Demo</a>
-            </div>
-            <div class="project-card">
-                <h4>MNIST Experiment Manager</h4>
-                <p>Real-time MNIST tracking & visualization tool.</p><a
-                    href="https://github.com/6namdang/MNIST-Experiment-Manager" target="_blank">Repo</a>
-            </div>
-            <div class="project-card">
-                <h4>Iron Condor Visualizer</h4>
-                <p>Streamlit app showing option Greeks & payoff diagrams.</p><a
-                    href="https://6namdang-ironcondor-app-qa4zkz.streamlit.app/" target="_blank">App</a>
-            </div>
-            <div class="project-card">
-                <h4>Heart Rate Detection</h4>
-                <p>PPG-based heart & respiratory rate estimation from video.</p><a
-                    href="https://github.com/6namdang/opencv-heart-rate-detection" target="_blank">Repo</a>
-            </div>
-        </div>
-    </section>
-
-    <section id="fun-facts">
-        <h2>Fun Fact</h2>
-        <p>My brother, Hoang P Dang, is pursuing a PhD in Electrical Engineering at Iowa State—and we even share the
-            exact same name! Check out his work <a href="https://scholar.google.com/citations?user=7hNuNQwAAAAJ&hl=en"
-                target="_blank">here</a>.</p>
-    </section>
-
-    <section id="advisors">
-        <h2>Advisors</h2>
-        <p>Thanks to everyone who supported me throughout 4 years of college.</p>
-        <ul class="entry-list">
-            <li>Dr. Mei-Huei Tang</li>
-            <li>Dr. Longfei Zhou</li>
-            <li>Dr. A'Darius Porter</li>
-            <li>Dr. Kefei Wang</li>
-            <li>Dr. Tajmiluh Rahman</li>
-            <li>Dr. Ohu Ikechuwu</li>
+        <ul class="projects">
+          <li>
+            <a href="https://interview-grader-frontend.vercel.app/" target="_blank"
+              >Interview Grader</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/6namdang/MNIST-Experiment-Manager" target="_blank"
+              >MNIST Experiment Manager</a
+            >
+          </li>
+          <li>
+            <a href="https://6namdang-ironcondor-app-qa4zkz.streamlit.app/" target="_blank"
+              >Iron Condor Visualizer</a
+            >
+          </li>
+          <li>
+            <a href="https://github.com/6namdang/opencv-heart-rate-detection" target="_blank"
+              >Heart Rate Detection</a
+            >
+          </li>
         </ul>
-    </section>
+      </section>
 
-    <section id="contact">
-        <h2>Contact</h2>
-        <p>Email: <a href="mailto:dang004@gannon.edu">dang004@gannon.edu</a></p>
-    </section>
+      <section id="blog">
+        <h2>Blog</h2>
+        <div id="posts"></div>
+        <form id="auth">
+          <input type="email" id="email" placeholder="Email" required />
+          <input type="password" id="password" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+        <button id="logout" hidden>Logout</button>
+        <form id="post-form" hidden>
+          <input type="text" id="title" placeholder="Title" required />
+          <textarea id="content" placeholder="Content" rows="5" required></textarea>
+          <input type="file" id="image" accept="image/*" />
+          <button type="submit">Save Post</button>
+        </form>
+      </section>
+    </main>
 
-    <script>
-        document.querySelectorAll('nav a').forEach(link => link.addEventListener('click', e => {
-            e.preventDefault();
-            document.querySelector(link.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
-        }));
-    </script>
-</body>
-
+    <footer id="contact">
+      <p>
+        Contact:
+        <a href="mailto:dang004@gannon.edu">dang004@gannon.edu</a>
+      </p>
+    </footer>
+    <script type="module" src="blog.js"></script>
+  </body>
 </html>
