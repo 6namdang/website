@@ -5,6 +5,12 @@
   --foreground: #171717;
 }
 
+.dark {
+  --background: #102a43;
+  /* was #0a0a0a */
+  --foreground: #ffffff;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,12 +18,18 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
+} */
+
+/* ADD TRANSITIONS HERE */
+* {
+  transition: background-color 1s ease, color 1s ease, border-color 1s ease;
 }
+
 
 body {
   background: var(--background);
