@@ -1,41 +1,31 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { ArrowUpRight, Award } from "lucide-react";
+import { Briefcase, Award, ArrowUpRight } from "lucide-react";
 
 // --- DATA ---
-// You can easily update your information for each section here
+// You can easily update your information here
 
 const experiences = [
     {
-        date: "2025 — 2026",
-        title: "Research Thesis: Predictive Modeling",
+        role: "Research Thesis: Predictive Modeling",
         company: "Gannon University",
-        description: "Developed a machine learning model to predict student transfer intentions. My work was awarded the J.J. Duratz Research Award and was accepted for publication at the ETLTC-ICES conference in Aizu, Japan.",
-        tags: ["Machine Learning", "Python", "Data Analysis", "Predictive Modeling", "Academic Research"],
-        link: "https://www.gannon.edu/" // Replace with a link to the paper or project if available
+        date: "2025 — 2026",
+        description: "Developed an ML model to predict student transfer intentions. Work was published at the ETLTC-ICES conference in Aizu, Japan.",
+        link: "#" // Replace with a link to the paper or project
     },
     {
-        date: "2024 — 2025",
-        title: "AI/ML Engineer (Senior Capstone)",
+        role: "AI/ML Engineer (Senior Capstone)",
         company: "Lockheed Martin Collaboration",
-        description: "Led the development of an AI-powered interview analysis platform. This tool was designed to streamline candidate assessment by analyzing video interviews for key communication and technical metrics.",
-        tags: ["Computer Vision", "Python", "FastAPI", "React.js", "Full-Stack"],
+        date: "2024 — 2025",
+        description: "Led the development of an AI-powered platform to analyze video interviews and streamline candidate assessment.",
         link: "https://www.lockheedmartin.com/"
     },
     {
-        date: "Summer 2022",
-        title: "Summer Conference Assistant",
+        role: "Summer Conference Assistant",
         company: "Gannon University",
-        description: "Provided logistical and administrative support for university conferences, ensuring a smooth and positive experience for all attendees, speakers, and organizers.",
-        tags: ["Event Coordination", "Logistics", "Public Speaking", "Customer Service"],
+        date: "Summer 2022",
+        description: "Provided logistical and administrative support for university conferences, ensuring a smooth experience for attendees and organizers.",
         link: "https://www.gannon.edu/"
-    },
-    {
-        date: "Side Experience",
-        title: "Bartender & HCI Researcher",
-        company: "Local Establishment",
-        description: "Viewed my role as an informal human-computer interaction lab, honing skills in user-centric service, rapid problem-solving, and effective communication in a dynamic, high-pressure environment.",
-        tags: ["Human-Computer Interaction", "Communication", "User Experience", "Problem-Solving"],
     },
 ];
 
@@ -46,10 +36,16 @@ const awards = [
         date: "2025"
     },
     {
-        name: "Accepted Publication at ETLTC-ICES",
+        name: "Published at ETLTC-ICES Conference",
         issuer: "University of Aizu, Japan",
         date: "2026"
     },
+
+    {
+        name: "Paper accepted at IEEE CSCloud",
+        date: "2026"
+    }
+    // Add more awards here if you like
 ];
 
 const skills = [
@@ -75,87 +71,83 @@ const skills = [
     }
 ];
 
-
-// SEO Metadata for the page
+// SEO Metadata
 export const metadata: Metadata = {
     title: "My Journey | Hoang Nam Dang",
-    description: "A timeline of my professional journey, awards, and a showcase of my technical skills.",
+    description: "A detailed timeline of my professional experience, awards, and technical skills.",
 };
+
+
+// --- PAGE COMPONENT ---
 
 export default function ExperiencesPage() {
     return (
         <main className="w-full max-w-3xl mx-auto px-4 py-28 sm:py-32">
-            <header className="mb-12">
-                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-white">
+            <header className="mb-16">
+                <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
                     My Journey
                 </h1>
-                <p className="mt-4 text-base text-gray-600 dark:text-gray-400">
-                    A timeline of my work, research, awards, and skills. I believe in learning from every opportunity and continuously building my expertise.
-                </p>
+                <p className="mt-4 text-base text-gray-600 dark:text-gray-300">
+                    A timeline of my work, research, and projects. I believe in learning from every opportunity, whether it's in a lab, a corporate setting, or even behind a bar.                </p>
             </header>
 
-            {/* --- EXPERIENCE SECTION (UNCHANGED) --- */}
-            <div className="flex flex-col gap-12">
-                {experiences.map((exp) => (
-                    <div
-                        key={exp.title}
-                        className="group relative flex flex-col sm:flex-row gap-4 sm:gap-8 p-4 -mx-4 rounded-xl transition-all duration-300 hover:bg-gray-100/50 dark:hover:bg-white/5"
-                    >
-                        <div className="flex-shrink-0 w-full sm:w-32 text-sm font-semibold text-gray-500 dark:text-gray-400">
-                            {exp.date}
-                        </div>
-                        <div className="flex-1">
-                            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-1 flex items-center">
-                                {exp.title}
-                                {exp.link && <ArrowUpRight className="w-4 h-4 ml-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />}
-                            </h3>
-                            <p className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
-                                {exp.company}
-                            </p>
-                            <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                                {exp.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2 mt-4">
-                                {exp.tags.map((tag) => (
-                                    <span key={tag} className="text-xs font-medium px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 rounded-full">
-                                        {tag}
-                                    </span>
-                                ))}
+            {/* --- Experience Section --- */}
+            <section className="mb-16">
+                <h2 className="text-xl font-semibold uppercase tracking-widest text-gray-700 dark:text-gray-200 mb-8">
+                    Experience
+                </h2>
+                <div className="relative pl-8">
+                    {/* Vertical Line */}
+                    <div className="absolute left-2 top-1.5 h-full w-px bg-gray-200 dark:bg-gray-700"></div>
+
+                    <div className="flex flex-col gap-12">
+                        {experiences.map((exp, index) => (
+                            <div key={index} className="relative group">
+                                {/* Dot on the timeline */}
+                                <div className="absolute -left-[38px] top-1.5 flex h-7 w-7 items-center justify-center rounded-full bg-white dark:bg-gray-900">
+                                    <div className="h-3 w-3 rounded-full bg-gray-300 dark:bg-gray-400 group-hover:bg-blue-500 dark:group-hover:bg-blue-400 transition-colors duration-200"></div>
+                                </div>
+                                <p className="text-sm font-medium text-gray-500 dark:text-gray-400">{exp.date}</p>
+                                <h3 className="mt-1 text-lg font-semibold text-gray-900 dark:text-gray-100">{exp.role}</h3>
+                                <div className="flex items-center gap-2">
+                                    <p className="text-gray-700 dark:text-gray-200">{exp.company}</p>
+                                    {exp.link && (
+                                        <Link href={exp.link} target="_blank" rel="noopener noreferrer" className="text-blue-500 dark:text-blue-400 hover:underline">
+                                            <ArrowUpRight className="w-4 h-4" />
+                                        </Link>
+                                    )}
+                                </div>
+                                <p className="mt-2 text-gray-600 dark:text-gray-300">{exp.description}</p>
                             </div>
-                        </div>
-                        {exp.link && (
-                            <Link href={exp.link} target="_blank" rel="noopener noreferrer" className="absolute inset-0">
-                                <span className="sr-only">View details about {exp.title}</span>
-                            </Link>
-                        )}
+                        ))}
                     </div>
-                ))}
-            </div>
+                </div>
+            </section>
 
-            {/* --- SEPARATOR --- */}
-            <hr className="my-16 border-gray-200 dark:border-gray-800" />
+            <hr className="my-16 border-gray-200 dark:border-gray-700" />
 
-            {/* --- AWARDS SECTION (NEW) --- */}
-            <section>
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-8">
+            {/* --- Awards Section --- */}
+            <section className="mb-16">
+                <h2 className="text-xl font-semibold uppercase tracking-widest text-gray-700 dark:text-gray-200 mb-8">
                     Awards
                 </h2>
                 <div className="relative pl-8">
                     {/* Vertical Line */}
-                    <div className="absolute left-0 top-1 h-full w-px bg-gray-200 dark:bg-gray-800"></div>
+                    <div className="absolute left-2 top-0 h-full w-px bg-gray-200 dark:bg-gray-700"></div>
+
                     <div className="flex flex-col gap-8">
                         {awards.map((award, index) => (
                             <div key={index} className="relative">
                                 {/* Icon on the timeline */}
-                                <div className="absolute -left-[40px] top-0 flex h-7 w-7 items-center justify-center rounded-full bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-400">
+                                <div className="absolute -left-[38px] top-0 flex h-7 w-7 items-center justify-center rounded-full bg-white dark:bg-gray-900 text-gray-500 dark:text-gray-300">
                                     <Award className="w-5 h-5" />
                                 </div>
-                                <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between">
+                                <div className="flex items-baseline justify-between">
                                     <div>
-                                        <h3 className="font-semibold text-gray-900 dark:text-white">{award.name}</h3>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400">{award.issuer}</p>
+                                        <h3 className="font-semibold text-gray-900 dark:text-gray-100">{award.name}</h3>
+                                        <p className="text-sm text-gray-600 dark:text-gray-300">{award.issuer}</p>
                                     </div>
-                                    <p className="mt-1 sm:mt-0 flex-shrink-0 text-sm font-medium text-gray-500 dark:text-gray-400">{award.date}</p>
+                                    <p className="flex-shrink-0 text-sm font-medium text-gray-500 dark:text-gray-400">{award.date}</p>
                                 </div>
                             </div>
                         ))}
@@ -163,23 +155,22 @@ export default function ExperiencesPage() {
                 </div>
             </section>
 
-            {/* --- SEPARATOR --- */}
-            <hr className="my-16 border-gray-200 dark:border-gray-800" />
+            <hr className="my-16 border-gray-200 dark:border-gray-700" />
 
-            {/* --- SKILLS SECTION (NEW) --- */}
+            {/* --- Skills Section --- */}
             <section>
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white mb-8">
-                    Skills & Technologies
+                <h2 className="text-xl font-semibold uppercase tracking-widest text-gray-700 dark:text-gray-200 mb-8">
+                    Skills
                 </h2>
-                <div className="space-y-8">
+                <div className="space-y-6">
                     {skills.map((skillCategory) => (
                         <div key={skillCategory.category}>
-                            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400 tracking-wider uppercase mb-4">
+                            <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-300 tracking-wider mb-3">
                                 {skillCategory.category}
                             </h3>
-                            <div className="flex flex-wrap gap-3">
+                            <div className="flex flex-wrap gap-2">
                                 {skillCategory.items.map((item) => (
-                                    <span key={item} className="text-sm font-medium px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg">
+                                    <span key={item} className="text-sm font-medium px-4 py-1.5 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-md">
                                         {item}
                                     </span>
                                 ))}

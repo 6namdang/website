@@ -20,7 +20,7 @@ export default function About() {
                         Beyond tech, I volunteer in my community, including teaching cybersecurity skills.
                     </p>
 
-                    {/* <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
+                    <ul className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-2xl">
                         <li className="border-[0.5px] border-gray-300 dark:border-gray-700 rounded-xl p-6 bg-white dark:bg-gray-800 hover:bg-[#fcf4ff] dark:hover:bg-[#fcf4ff]/10 hover:-translate-y-1 transition-transform duration-500">
                             <CodeXml className="w-7 mt-3 text-gray-900 dark:text-gray-100" />
                             <h3 className="my-4 font-semibold text-gray-700 dark:text-gray-300">Languages</h3>
@@ -38,7 +38,7 @@ export default function About() {
                             <h3 className="my-4 font-semibold text-gray-700 dark:text-gray-300">Skills</h3>
                             <p className="text-gray-600 dark:text-gray-400 text-sm">Networking, Operating System, Computer Architecture, ML, AWS</p>
                         </li>
-                    </ul> */}
+                    </ul>
                 </div>
             </div>
         </div>
