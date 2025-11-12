@@ -7,14 +7,14 @@ import { Mail, Github, Linkedin, Twitter, FileText } from "lucide-react";
 const socials = [
     {
         name: "LinkedIn",
-        href: "https://www.linkedin.com/in/your-profile-name", // <-- UPDATE THIS
-        handle: "Your Profile Name", // <-- UPDATE THIS
+        href: "https://www.linkedin.com/in/dang004", // <-- UPDATE THIS
+        handle: "dang004", // <-- UPDATE THIS
         icon: <Linkedin className="w-5 h-5" />
     },
     {
         name: "GitHub",
-        href: "https://github.com/hoangdang",
-        handle: "hoangdang",
+        href: "https://github.com/6namdang",
+        handle: "6namdang",
         icon: <Github className="w-5 h-5" />
     },
     {

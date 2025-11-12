@@ -1,53 +1,37 @@
 'use client'
 
-import Link from "next/link";
-import { Moon, Sun, Menu, X, LogOut, Edit } from 'lucide-react';
+// Removed import for next/link
+import { Moon, Sun, Menu, X } from 'lucide-react';
 import { useState, useEffect } from "react";
 import { useTheme } from 'next-themes';
-import { usePathname, useRouter } from "next/navigation";
-import { createClient } from '@/lib/supabase/client';
-import type { User } from "@supabase/supabase-js";
-import React from "react"; // Import React for ReactNode type
+// Removed import for next/navigation
+import React from "react";
 import { MenuItem } from "@/types";
-// ✅ Define a type for our menu items
 
+// We will use standard <a> tags instead of Link
+// and get the pathname from window.location
 export default function Navbar() {
     // --- State Hooks ---
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const [mounted, setMounted] = useState(false);
-    const [user, setUser] = useState<User | null>(null);
+    // Add state to hold the current pathname
+    const [pathName, setPathName] = useState("");
 
     // --- Next.js Hooks ---
     const { theme, setTheme } = useTheme();
-    const pathName = usePathname();
-    const router = useRouter();
-
-    const supabase = createClient();
 
     useEffect(() => {
         setMounted(true);
-        const { data: authListener } = supabase.auth.onAuthStateChange((event, session) => {
-            setUser(session?.user ?? null);
-        });
-        return () => {
-            authListener.subscription.unsubscribe();
-        };
-    }, [supabase]);
-
-    useEffect(() => {
+        // Set the pathname from the window object
+        setPathName(window.location.pathname);
+        
         const handleScroll = () => setIsScrolled(window.scrollY > 20);
         window.addEventListener('scroll', handleScroll);
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    const handleLogout = async () => {
-        await supabase.auth.signOut();
-        router.refresh();
-        setIsMenuOpen(false);
-    };
-
-    // ✅ Create the menu items array with the correct type
+    // Base menu items remain
     const baseMenuItems: MenuItem[] = [
         { label: 'Experience', href: '/experiences' },
         { label: 'Projects', href: '/projects' },
@@ -56,18 +40,8 @@ export default function Navbar() {
         { label: 'Contact', href: '/contact' },
     ];
 
-    const menuItems: MenuItem[] = [
-        ...baseMenuItems,
-        ...(user
-            ? [
-                { label: 'Write Blog', href: '/writeblog', icon: <Edit className="w-4 h-4 mr-2" /> },
-                { label: 'Logout', action: handleLogout, icon: <LogOut className="w-4 h-4 mr-2" /> }
-            ]
-            : [
-                { label: 'Login', href: '/login' }
-            ]
-        )
-    ];
+    // Menu items are now just the base items
+    const menuItems: MenuItem[] = baseMenuItems;
 
 
     return (
@@ -75,22 +49,23 @@ export default function Navbar() {
             <nav className={`fixed top-1 left-1/2 -translate-x-1/2 z-50 transition-all duration-[800ms] ease-in-out ${isScrolled ? 'w-[95%] max-w-6xl' : 'w-[90%] max-w-5xl'}`}>
                 <div className={`backdrop-blur-md bg-white/60 dark:bg-gray-900/60 border border-gray-200/50 dark:border-gray-700/50 rounded-2xl shadow-lg transition-all duration-[800ms] ease-in-out ${isScrolled ? 'shadow-xl py-3' : 'py-4'}`}>
                     <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8">
-                        {/* Logo */}
-                        <Link href="/" className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white hover:opacity-60 transition-opacity duration-200">
+                        {/* Logo (using <a> tag) */}
+                        <a href="/" className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white hover:opacity-60 transition-opacity duration-200">
                             Hoang Nam Dang
-                        </Link>
+                        </a>
 
                         {/* Desktop Menu */}
                         <ul className="hidden md:flex items-center gap-1 lg:gap-2">
                             {menuItems.map((item) => (
                                 <li key={item.label}>
                                     {item.href ? (
-                                        <Link
+                                        // Use <a> tag instead of <Link>
+                                        <a
                                             href={item.href}
                                             className={`flex items-center px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${pathName === item.href ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900" : "text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100/50 dark:hover:bg-gray-800/50"}`}
                                         >
                                             {item.icon}{item.label}
-                                        </Link>
+                                        </a>
                                     ) : (
                                         <button
                                             onClick={item.action}
@@ -132,7 +107,8 @@ export default function Navbar() {
                         {menuItems.map((item) => (
                             <li key={item.label}>
                                 {item.href ? (
-                                    <Link href={item.href} onClick={() => setIsMenuOpen(false)} className={`block px-4 py-3 rounded-lg font-medium ${pathName === item.href ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}>{item.label}</Link>
+                                    // Use <a> tag instead of <Link>
+                                    <a href={item.href} onClick={() => setIsMenuOpen(false)} className={`block px-4 py-3 rounded-lg font-medium ${pathName === item.href ? "bg-gray-900 text-white dark:bg-white dark:text-gray-900" : "hover:bg-gray-100 dark:hover:bg-gray-800"}`}>{item.label}</a>
                                 ) : (
                                     <button onClick={item.action} className="w-full text-left block px-4 py-3 rounded-lg font-medium hover:bg-gray-100 dark:hover:bg-gray-800">{item.label}</button>
                                 )}
@@ -144,3 +120,4 @@ export default function Navbar() {
         </>
     );
 }
+

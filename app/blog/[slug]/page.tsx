@@ -1,133 +1,71 @@
-import { createClient } from '@/lib/supabase/server';
-import { notFound } from 'next/navigation';
-import { marked } from 'marked';
-import { Metadata } from 'next';
-import Link from 'next/link';
-import PostSidebar from './PostSidebar';
-import { TocItem, Post } from '@/types'; // Assuming types are in @/types
+import Link from "next/link"
+import { ArrowLeft } from "lucide-react"
+import { getArticleData, getAllArticleIds } from "@/lib/articles"
+import moment from "moment"
 
-// --- Helper Functions ---
-
-// Helper function to format the date
-function formatDate(dateString: string) {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric',
-    });
+export function generateStaticParams() {
+  return getAllArticleIds()
 }
 
-// Helper to create slugs for headings
-const slugify = (text: string) => {
-    return text
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/[\s_-]+/g, '-');
-};
+const Article = async ({ params }: { params: Promise<{ slug: string }> }) => {
+  const { slug } = await params;
+  const articleData = await getArticleData(slug)
+  
+  return (
+    <main className="min-h-screen bg-white">
+      <div className="max-w-3xl mx-auto px-6 py-16">
+        
+        {/* Back link */}
+        <Link 
+          href="/blog" 
+          className="inline-flex items-center gap-2 text-sm text-neutral-600 hover:text-neutral-900 transition-colors mb-8"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          back
+        </Link>
 
-// --- Dynamic Metadata ---
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-    const supabase = await createClient();
-    const { data: post } = await supabase
-        .from('posts')
-        .select('title, content')
-        .eq('slug', params.slug)
-        .single();
+        {/* Article header */}
+        <header className="mb-12">
+          <h1 className="text-4xl font-light text-neutral-900 mb-4 leading-tight">
+            {articleData.title}
+          </h1>
+          <div className="flex items-center gap-4 text-sm text-neutral-600">
+            <time dateTime={articleData.date}>
+              {moment(articleData.date, "DD-MM-YYYY").format("MMMM D, YYYY")}
+            </time>
+            <span>•</span>
+            <span className="lowercase">{articleData.category}</span>
+          </div>
+        </header>
 
-    if (!post) {
-        return { title: 'Post Not Found' };
-    }
+        {/* Article content with your existing .article styles */}
+        <article
+          className="article prose prose-neutral max-w-none
+            prose-headings:font-light
+            prose-headings:text-neutral-900
+            prose-p:text-neutral-700
+            prose-a:text-blue-600
+            prose-a:no-underline
+            hover:prose-a:underline
+            prose-code:text-sm
+            prose-code:before:content-['']
+            prose-code:after:content-['']
+          "
+          dangerouslySetInnerHTML={{ __html: articleData.contentHtml }}
+        />
 
-    const description = post.content.substring(0, 160).replace(/(\*\*|#|\[.*?\]\(.*?\))/g, '').replace(/\s+/g, ' ').trim() + '...';
-    return {
-        title: `${post.title} | Hoang Nam Dang`,
-        description: description,
-    };
+        {/* Footer back link */}
+        <footer className="mt-16 pt-8 border-t border-neutral-200">
+          <Link 
+            href="/blog"
+            className="text-sm text-neutral-600 hover:text-neutral-900 transition-colors"
+          >
+            ← back to blog
+          </Link>
+        </footer>
+      </div>
+    </main>
+  )
 }
 
-
-// --- PAGE COMPONENT ---
-export default async function PostPage({ params }: { params: { slug: string } }) {
-    const supabase = await createClient();
-    const { data: post } = await supabase
-        .from('posts')
-        .select('title, content, created_at, tags, table_of_contents')
-        .eq('slug', params.slug)
-        .single<Post>();
-
-    if (!post) {
-        notFound();
-    }
-
-    const renderer = new marked.Renderer();
-    renderer.heading = (token) => {
-        const text = token.text;
-        const level = token.depth;
-        const slug = slugify(text);
-        const marginTopClass = "scroll-mt-24";
-        return `<h${level} id="${slug}" class="${marginTopClass}">${text}</h${level}>`;
-    };
-    marked.use({ renderer });
-    const htmlContent = await marked.parse(post.content);
-
-    return (
-        // The main container is centered with mx-auto and has a max-width
-        <div className="w-full max-w-6xl mx-auto px-4 py-28 sm:py-32">
-            <div className="flex flex-col lg:flex-row justify-center gap-12">
-
-                {/* --- Main Content (Left Column) --- */}
-                <main className="flex-1 min-w-0 lg:max-w-3xl">
-                    <article>
-                        {/* Post Header */}
-                        <header className="mb-8">
-                            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-gray-900 dark:text-gray-50">
-                                {post.title}
-                            </h1>
-                            <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm text-gray-500 dark:text-gray-400">
-                                <time dateTime={post.created_at}>
-                                    {formatDate(post.created_at)}
-                                </time>
-                                {post.tags && post.tags.length > 0 && (
-                                    <>
-                                        <span className="w-px h-4 bg-gray-300 dark:bg-gray-600"></span>
-                                        <div className="flex flex-wrap gap-2">
-                                            {post.tags.map(tag => (
-                                                <span key={tag} className="text-xs font-medium px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-200 rounded-md">
-                                                    {tag}
-                                                </span>
-                                            ))}
-                                        </div>
-                                    </>
-                                )}
-                            </div>
-                        </header>
-
-                        <hr className="my-8 border-gray-200 dark:border-gray-700" />
-
-                        {/* Post Content */}
-                        <div
-                            className="prose prose-lg prose-gray dark:prose-invert max-w-none"
-                            dangerouslySetInnerHTML={{ __html: htmlContent }}
-                        />
-
-                        <hr className="my-12 border-gray-200 dark:border-gray-700" />
-
-                        <div className="text-center">
-                            <Link href="/blog" className="text-blue-600 dark:text-blue-400 hover:underline">
-                                ← Back to all posts
-                            </Link>
-                        </div>
-                    </article>
-                </main>
-
-                {/* --- Right Sidebar --- */}
-                {post.table_of_contents && post.table_of_contents.length > 0 && (
-                    <aside className="hidden lg:block lg:w-64 flex-shrink-0">
-                        <PostSidebar toc={post.table_of_contents} />
-                    </aside>
-                )}
-            </div>
-        </div>
-    );
-}
+export default Article

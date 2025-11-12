@@ -7,19 +7,56 @@ import { Briefcase, Award, ArrowUpRight } from "lucide-react";
 
 const experiences = [
     {
-        role: "Research Thesis: Predictive Modeling",
-        company: "Gannon University",
-        date: "2025 — 2026",
-        description: "Developed an ML model to predict student transfer intentions. Work was published at the ETLTC-ICES conference in Aizu, Japan.",
-        link: "#" // Replace with a link to the paper or project
-    },
-    {
         role: "AI/ML Engineer (Senior Capstone)",
         company: "Lockheed Martin Collaboration",
         date: "2024 — 2025",
         description: "Led the development of an AI-powered platform to analyze video interviews and streamline candidate assessment.",
         link: "https://www.lockheedmartin.com/"
     },
+    // --- New Experiences Added From Resume ---
+    {
+        role: "Software Engineer",
+        company: "E3 Company",
+        date: "December 2024 - May 2025",
+        description: "Engineered a microservices-based notification system with RabbitMQ pub-sub, Docker, Kubernetes, gRPC, graphQL and InfluxDB, reducing latency by 25%. Implemented a caching layer with Redis for 15% faster performance.",
+        link: "#" // No link provided in resume
+    },
+    {
+        role: "Backend.NET Intern",
+        company: "PanHealth Inc",
+        date: "Date N/A", // No date provided on resume
+        description: "Implemented a pill entity backend in C# using Domain Driven Design, Repository Pattern, CQRS and Clean Architecture in .NET Core 6/.NET Web Form application, speeding up the latency by 20%.",
+        link: "#" // No link provided in resume
+    },
+    {
+        role: "VR App Developer",
+        company: "Gannon University",
+        date: "Oct 2024-May 2025",
+        description: "Developed a welding machine in Unity (C#) integrating Blender-modeled assets that allows Mechanical and Industrial Engineer at ISM to practice in the Virtual Reality world.",
+        link: "https://www.gannon.edu/"
+    },
+    {
+        role: "Research Assistant",
+        company: "Gannon University",
+        date: "Oct 2024-May 2025",
+        description: "Developed machine learning-based Intrusion Detection System (IDS), deployed via Docker, EC2, S3 and SageMaker. Applied ML and XAI (SHAP) for an EdTech research project on student transfer intentions.",
+        link: "https://www.gannon.edu/"
+    },
+    {
+        role: "Smart Manufacturing Research Assistant",
+        company: "Gannon University",
+        date: "Jan 2025-July 2025",
+        description: "Collected, preprocessed (labeled) and trained 250 videos in an end-to-end manufacturing pipeline to build a ML model in 3D printing that predicts errors in real time.",
+        link: "https://www.gannon.edu/"
+    },
+    {
+        role: "Data Analyst",
+        company: "Gannon University (Department of Residence Life)",
+        date: "May 2023-August 2024",
+        description: "Collected and updated student's housing information and meal plan in SQL database. Supported other students and parents with questions regards to housing on/off campus.",
+        link: "https.www.gannon.edu/"
+    },
+    // --- Original Experience ---
     {
         role: "Summer Conference Assistant",
         company: "Gannon University",
@@ -45,7 +82,6 @@ const awards = [
         name: "Paper accepted at IEEE CSCloud",
         date: "2026"
     }
-    // Add more awards here if you like
 ];
 
 const skills = [

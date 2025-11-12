@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #f5fefd;
@@ -7,7 +8,6 @@
 
 .dark {
   --background: #102a43;
-  /* was #0a0a0a */
   --foreground: #ffffff;
 }
 
@@ -18,21 +18,44 @@
   --font-mono: var(--font-geist-mono);
 }
 
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-} */
-
-/* ADD TRANSITIONS HERE */
 * {
   transition: background-color 1s ease, color 1s ease, border-color 1s ease;
 }
-
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.article {
+  @apply flex flex-col gap-3 text-lg tracking-wide mb-20;
+}
+
+.article > h1 {
+  @apply text-4xl text-center tracking-tight;
+}
+
+.article > h2 {
+  @apply text-3xl tracking-tight;
+}
+
+.article > ol {
+  @apply list-decimal flex flex-col mx-10 gap-2;
+}
+
+.article > ul {
+  @apply list-disc flex flex-col mx-10 gap-2;
+}
+
+.article > pre {
+  @apply bg-neutral-950 text-neutral-50 p-5 overflow-scroll;
+}
+
+.article > blockquote {
+  @apply pl-5 italic border-l-2 border-neutral-600/40;
+}
+
+.article > p > img {
+  @apply w-1/2 mx-auto;
 }

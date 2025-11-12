@@ -11,7 +11,7 @@ const projects = [
         tags: ["Python", "Computer Vision", "PyTorch", "NLP", "FastAPI", "React"],
         links: {
             code: "https://github.com/your-repo/ai-interviewer",
-            website: "#",
+            website: "",
         }
     },
     {
