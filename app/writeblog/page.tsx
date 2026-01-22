@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import { marked } from 'marked';
-import { createClient } from '@/lib/supabase/client'; // Use your client function
 import { useRouter } from 'next/navigation';
 
 // Define the structure for a Table of Contents item
@@ -47,7 +46,6 @@ export default function BlogEditorPage() {
     // --- UI State ---
     const [loadingState, setLoadingState] = useState<'idle' | 'draft' | 'published'>('idle');
 
-    const supabase = createClient();
     const router = useRouter();
 
     // Effect to auto-generate slug from title
@@ -74,7 +72,7 @@ export default function BlogEditorPage() {
         setToc(headings);
     }, [content]);
 
-    // Function to save the post to Supabase
+    // Function to "save" the post (placeholder, no Supabase)
     const handleSave = async (status: 'draft' | 'published') => {
         if (!title.trim()) {
             alert('Please enter a title.');
@@ -89,29 +87,21 @@ export default function BlogEditorPage() {
 
         const tagsArray = tags.split(',').map(tag => tag.trim()).filter(tag => tag.length > 0);
 
-        const { error } = await supabase
-            .from('posts')
-            .insert([
-                {
-                    title: title,
-                    slug: slug,
-                    content: content,
-                    table_of_contents: toc, // Save the generated ToC JSON
-                    tags: tagsArray,
-                    status: status,
-                }
-            ]);
+        // Placeholder for actual saving logic
+        console.log({
+            title,
+            slug,
+            content,
+            toc,
+            tags: tagsArray,
+            status,
+        });
 
-        if (error) {
-            console.error('Error saving post:', error);
-            alert(`Failed to save post: ${error.message}`);
-            setLoadingState('idle');
-        } else {
-            alert(`Post saved as ${status}!`);
-            setLoadingState('idle');
-            // Redirect to the new post's page or the main blog page
-            router.push('/blog');
-        }
+        alert(`Post ${status === 'draft' ? 'saved as draft' : 'published'}!`);
+        setLoadingState('idle');
+
+        // Redirect (example)
+        router.push('/blog');
     };
 
     return (
@@ -144,7 +134,7 @@ export default function BlogEditorPage() {
                         type="text"
                         id="slug"
                         value={slug}
-                        onChange={(e) => setSlug(slugify(e.target.value))} // Allow manual edits, but still slugify
+                        onChange={(e) => setSlug(slugify(e.target.value))}
                         placeholder="my-awesome-post-title"
                         className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono text-sm"
                     />
@@ -158,7 +148,7 @@ export default function BlogEditorPage() {
                         id="tags"
                         value={tags}
                         onChange={(e) => setTags(e.target.value)}
-                        placeholder="react, nextjs, supabase"
+                        placeholder="react, nextjs, ai"
                         className="w-full px-4 py-2 bg-gray-50 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                     <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Comma-separated (e.g., react, nextjs, ai)</p>
@@ -195,7 +185,6 @@ export default function BlogEditorPage() {
                                             <a href={`#${item.slug}`} className="text-sm text-blue-600 dark:text-blue-400 hover:underline">
                                                 {item.text}
                                             </a>
-
                                         </li>
                                     ))}
                                 </ul>
